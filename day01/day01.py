@@ -1,6 +1,6 @@
 import re
 
-def get_first_and_last_digit(input_string):
+def get_first_and_last_digit(input_string, replace=False):
     # Initialize variables to store the first and last digits
     first_digit = None
     last_digit = None
@@ -18,10 +18,11 @@ def get_first_and_last_digit(input_string):
         'nine': '9'
     }
 
-    # Regex to match the first and last digits
-    for key in word_to_digit.keys():
-        while re.search(key, input_string) is not None:
-            input_string=re.sub(key, key[0]+word_to_digit[key]+key[len(key)-1], input_string)
+    if replace:
+        # Regex to match the first and last digits
+        for key in word_to_digit.keys():
+            while re.search(key, input_string) is not None:
+                input_string=re.sub(key, key[0]+word_to_digit[key]+key[len(key)-1], input_string)
 
 
     for char in input_string:
@@ -41,9 +42,11 @@ file = open("data.txt", "r")
 data = file.readlines()
 file.close()
 
-sum = 0
+sum1 = 0
+sum2 = 0
 for line in data:
-    a = get_first_and_last_digit(line)
-    sum += a
+    sum1 += get_first_and_last_digit(line)
+    sum2 += get_first_and_last_digit(line, True)
 
-print(sum)
+print(sum1)
+print(sum2)
